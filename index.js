@@ -35,7 +35,8 @@ fetch("https://openapi.programming-hero.com/api/plants")
     });
 
     const buttons = document.querySelectorAll(".btn");
-    let cartItem = document.querySelector(".cart-item");
+    console.log(buttons);
+    let cartItem = document.querySelector(".cart-items");
     let total = 0;
     buttons.forEach(button => {
         button.addEventListener("click", () => {
@@ -49,17 +50,48 @@ fetch("https://openapi.programming-hero.com/api/plants")
                 let plantItem = document.createElement("div");
                 plantItem.classList.add("plant-item");
                 plantItem.innerHTML = `
+                <div class = "plant-info">
                     <h4>${plantName}</h4>
                     <p>Tk.${price}</p>
+                </div>
+                <img class ="close-icon" src="assets/close.png" alt="close icon" />
                 `;
                 total += price;
                 cartItem.appendChild(plantItem);
-                document.querySelector("#total-amount").innerText = `Total: Tk.${total.toFixed(2)}`;
+                document.querySelector("#total-amount").innerText = `${total.toFixed(2)}`;
 
                 
             })
             .catch(error => console.log(error));
         });
     });
+
+    // let closeIcons = document.querySelectorAll(".close-icon");
+    // closeIcons.forEach(icon => {
+    //     icon.addEventListener("click", () => {
+    //         let itemPrice = parseFloat(icon.previousElementSibling.children[1].innerText.replace("Tk.",""));
+    //         console.log(itemPrice);
+    //         icon.parentElement.remove();
+    //     });
+    // });
+
+
+    cartItem.addEventListener("click", (e) => {
+        if (e.target.classList.contains("close-icon")) {
+            let itemPrice = parseFloat(
+                e.target.previousElementSibling.children[1].innerText.replace("Tk.","")
+            );
+            console.log("Removed item price:", itemPrice);
+
+            // Remove item from DOM
+            e.target.parentElement.remove();
+
+            // Update total
+            total -= itemPrice;
+            document.querySelector("#total-amount").innerText = `${total.toFixed(2)}`;
+        }
+    });
+
+
 })
 .catch(error => console.log(error));

@@ -95,3 +95,16 @@ li{
     gap: 10px;
     padding: 10px;
 }
+
+.plant-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+.close-icon{
+    width: 20px;
+    height: 20px;
+}
