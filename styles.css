@@ -86,3 +86,12 @@ li{
     padding: 5px;
     border-radius: 10px;
 }
+
+.cart{
+    border: 2px solid yellow;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}

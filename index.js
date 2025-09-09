@@ -35,6 +35,8 @@ fetch("https://openapi.programming-hero.com/api/plants")
     });
 
     const buttons = document.querySelectorAll(".btn");
+    let cartItem = document.querySelector(".cart-item");
+    let total = 0;
     buttons.forEach(button => {
         button.addEventListener("click", () => {
             let id = button.getAttribute("id");
@@ -42,6 +44,18 @@ fetch("https://openapi.programming-hero.com/api/plants")
             .then(res => res.json())
             .then(data =>{
                 let price = data.plants.price;
+                let plantName = data.plants.name;
+
+                let plantItem = document.createElement("div");
+                plantItem.classList.add("plant-item");
+                plantItem.innerHTML = `
+                    <h4>${plantName}</h4>
+                    <p>Tk.${price}</p>
+                `;
+                total += price;
+                cartItem.appendChild(plantItem);
+                document.querySelector("#total-amount").innerText = `Total: Tk.${total.toFixed(2)}`;
+
                 
             })
             .catch(error => console.log(error));
