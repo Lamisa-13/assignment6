@@ -19,8 +19,8 @@ fetch("https://openapi.programming-hero.com/api/plants")
     const items = document.querySelector(".items")
 
     plants.forEach(plant => {
-        const plantDiv = document.createElement("div")
-        plantDiv.classList.add("plant")
+        const plantDiv = document.createElement("div");
+        plantDiv.classList.add("plant");
         plantDiv.innerHTML = `
         <img src="assets/hero-leaf1.png" alt="image of a plant" />
         <h3>${plant.name}</h3>
@@ -29,8 +29,23 @@ fetch("https://openapi.programming-hero.com/api/plants")
             <span class = "plant-category">${plant.category}</span>
             <span class = "plant-price">Tk.${plant.price}</span>
         </div>
-        <button class="btn">Add to Cart</button>`;
+        <button id = "${plant.id}" class="btn">Add to Cart</button>`;
         items.appendChild(plantDiv);
+
+    });
+
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            let id = button.getAttribute("id");
+            fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
+            .then(res => res.json())
+            .then(data =>{
+                let price = data.plants.price;
+                
+            })
+            .catch(error => console.log(error));
+        });
     });
 })
-.catch(error => console.log(error)) ;
+.catch(error => console.log(error));
