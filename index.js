@@ -1,9 +1,9 @@
+const categoriesList = document.querySelector(".categories ul");
+
 fetch("https://openapi.programming-hero.com/api/categories")
 .then(response => response.json())
 .then(data => {
     const categories = data.categories;
-    
-    const categoriesList = document.querySelector(".categories ul");
     categories.forEach(category => {
         const li = document.createElement("li");
         li.textContent = category.category_name;
@@ -66,16 +66,6 @@ fetch("https://openapi.programming-hero.com/api/plants")
         });
     });
 
-    // let closeIcons = document.querySelectorAll(".close-icon");
-    // closeIcons.forEach(icon => {
-    //     icon.addEventListener("click", () => {
-    //         let itemPrice = parseFloat(icon.previousElementSibling.children[1].innerText.replace("Tk.",""));
-    //         console.log(itemPrice);
-    //         icon.parentElement.remove();
-    //     });
-    // });
-
-
     cartItem.addEventListener("click", (e) => {
         if (e.target.classList.contains("close-icon")) {
             let itemPrice = parseFloat(
@@ -95,3 +85,16 @@ fetch("https://openapi.programming-hero.com/api/plants")
 
 })
 .catch(error => console.log(error));
+
+
+categoriesList.addEventListener("click", (e) => {
+    if (e.target.tagName === "LI") {
+        e.target.classList.add("active");
+    }
+    document.querySelectorAll(".categories ul li").forEach(li => {
+        if (li !== e.target) {
+            li.classList.remove("active");
+        }
+    });
+});
+
